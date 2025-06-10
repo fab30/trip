@@ -28,15 +28,33 @@
 	<script type="text/javascript" src="js/modules/youtube-integration.js"></script>
 
 	<link rel="shortcut icon" href="/favicon.ico">
+
+	<!-- Suppression des warnings console (optionnel) -->
+	<script>
+		// Masquer les warnings Google Maps non critiques
+		var originalConsoleWarn = console.warn;
+		console.warn = function (message) {
+			if (typeof message === 'string' && message.includes('Google Maps JavaScript API')) {
+				return; // Ignorer les warnings Google Maps
+			}
+			originalConsoleWarn.apply(console, arguments);
+		};
+	</script>
+
 	<!-- Chargement asynchrone de Google Maps -->
 	<script>
 		function initGoogleMaps() {
 			// Google Maps est maintenant chargé de manière asynchrone
-			console.log("Google Maps chargé de manière asynchrone");
+			console.log("✅ Google Maps chargé avec succès");
 		}
+
+		// Gestion des erreurs de chargement Google Maps
+		window.gm_authFailure = function () {
+			console.error("❌ Erreur d'authentification Google Maps");
+		};
 	</script>
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbZ2VUbWdm4zpjVBQOZYRqoW7wYY47kY4&callback=initGoogleMaps">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbZ2VUbWdm4zpjVBQOZYRqoW7wYY47kY4&callback=initGoogleMaps&loading=async">
 		</script>
 
 	<script type="text/javascript">
@@ -49,6 +67,8 @@
 					analyticsTracker: "UA-31064924-1",
 					analyticsEventName: "Alison-et-fab"
 				});
+			}).fail(function () {
+				console.error("❌ Erreur de chargement du scénario");
 			});
 		});
 	</script>
