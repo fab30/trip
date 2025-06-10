@@ -1,0 +1,589 @@
+@charset "UTF-8";
+
+/* jDocumentary - Core */
+
+html {
+	height: 100%;
+	font-size: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+#jdocumentary-screen {
+	height: 100%;
+	background: #222 url(resources/bg.jpg);
+	padding: 0;
+	color: #fff;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-size: 14px;
+	line-height: 100%;
+	cursor: default;
+}
+
+#jdocumentary-screen a {
+	color: #fff;
+	cursor: pointer;
+}
+
+.jdocumentary-page {
+	display: block;
+	position: static;
+	z-index: 1;
+	margin: 0;
+	padding: 0;
+	border: none;
+	height: 100%;
+	width: 100%;
+}
+
+.jdocumentary-layer {
+	display: block;
+	position: absolute;
+	z-index: 2;
+}
+
+.jdocumentary-content {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 3%;
+	padding: 5px 10px;
+	max-width: 30%;
+	min-width: 300px;
+	line-height: 130%;
+	border: 1px solid #444;
+	color: #ccc;
+	background-color: #000;
+	overflow: auto;
+	font-size: 110%;
+	-moz-opacity: 0.95;
+	-ms-filter: "alpha(opacity=95)";
+	filter: alpha(opacity=95);
+	opacity: 0.95;
+	behavior: url(jdocumentary/themes/helsinki/resources/PIE.htc);
+}
+
+.jdocumentary-content p { margin: 2% 1%; }
+
+.jdocumentary-content img, .jdocumentary-content video, .jdocumentary-content object {
+	max-width: 100%;
+}
+
+.jdocumentary-content pre {
+	max-width: 100%;
+	overflow: auto;
+}
+
+.jdocumentary-content code {
+	font-family: "Courier New", Courier, monospace;
+}
+
+.jdocumentary-content:hover {
+	-moz-opacity: 0.3;
+	-ms-filter: "alpha(opacity=30)";
+	filter: alpha(opacity=30);
+	opacity: 0.3;
+}
+
+/* jDocumentary - Positions */
+
+.jdocumentary-position-top { top: 0; }
+.jdocumentary-position-right { right: 0; }
+.jdocumentary-position-bottom { bottom: 23px; }
+.jdocumentary-position-left { left: 0; }
+
+.jdocumentary-position-topleft { top: 0; right: auto; bottom: auto; left: 0; }
+.jdocumentary-position-topright { top: 0; right: 0; bottom: auto; left: auto; }
+.jdocumentary-position-bottomright { top: auto; right: 0; bottom: 23px; left: auto; }
+.jdocumentary-position-bottomleft { top: auto; right: auto; bottom: 23px; left: 0; }
+
+/* jDocumentary - Commands */
+
+.jdocumentary-commands {
+	position: fixed;
+	display: block;
+	bottom: 0 !important;
+	left: 0 !important;
+	width: 100%;
+	margin: 0;
+	padding: 2px 0;
+	z-index: 90;
+	background-color: #000;
+}
+
+.jdocumentary-commands a {
+	width: 19px;
+	height: 19px;
+	display: block;
+	text-decoration: none;
+	float: left;
+	margin-left: 9px;
+	cursor: pointer;
+	padding: 0;
+	background-color: #000;
+}
+
+#jdocumentary-command-home {
+	background: url(resources/sprits.png) -20px 0 no-repeat;
+}
+
+#jdocumentary-command-about {
+	background: url(resources/sprits.png) 0 0 no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-music {
+	float: right;
+}
+
+.jdocumentary-commands .jdocumentary-command-music-control {
+	background: url(resources/sprits.png) 0 -20px no-repeat;
+}
+.jdocumentary-commands .jdocumentary-command-mute {
+	background: url(resources/sprits.png) -20px -20px no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-unmute {
+	background: url(resources/sprits.png) -40px -20px no-repeat;
+}
+.jdocumentary-commands .jdocumentary-command-play {
+	background: url(resources/sprits.png) -60px -20px no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-pause {
+	background: url(resources/sprits.png) -80px -20px no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-previous {
+	background: url(resources/sprits.png) -100px -20px no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-next {
+	background: url(resources/sprits.png) -120px -20px no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-stop {
+	background: url(resources/sprits.png) -140px -20px no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-volume-minus {
+	background: url(resources/sprits.png) -160px -20px no-repeat;
+}
+
+.jdocumentary-commands .jdocumentary-command-volume-plus {
+	background: url(resources/sprits.png) -180px -20px no-repeat;
+}
+
+#jdocumentary-command-wait {
+	background: #000 url(resources/wait.gif) 1px 1px no-repeat;
+	width: 16px;
+	height: 16px;
+	padding: 1px;
+	margin-top: 1px;
+}
+
+/* jDocumentary - Buttons */
+
+.jdocumentary-buttons {
+	position: fixed;
+	display: block;
+	margin: 1%;
+	padding: 0 10px 0 0;
+	font-family: Verdana, Arial, Helvetica, sans-sherif;
+	font-size: 90%;
+	z-index: 80;
+	max-height: 85%;
+	max-width : 300px;
+	overflow-x: none;
+	overflow-y: auto;
+}
+
+.jdocumentary-button-label {
+	list-style-type: none;
+	margin-top: 10px;
+	white-space:nowrap;
+}
+
+
+.jdocumentary-button {
+	list-style-type: none;
+}
+
+.jdocumentary-button a {
+	display: block;
+	border: 1px solid #444;
+	margin: 4px 0 0 0;
+	padding: 4px 7px 4px 25px;
+	color: #ccc;
+	text-decoration: none;
+	background: #222 url(resources/sprits.png) 0 -40px no-repeat;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	white-space:nowrap;
+}
+
+.jdocumentary-button a:hover {
+	color: #fff;
+	border-color: orange;
+}
+
+.jdocumentary-button a:active {
+	color: orange !important;
+}
+
+/* jDocumentary - Left/Right Navigation */
+
+
+#jdocumentary-leftnav, #jdocumentary-rightnav {
+	position:absolute;
+	height:43px;
+	width:43px;
+	top:50%;
+	margin-top:-21px;
+	opacity:0.6;
+	z-index: 85;
+}
+
+#jdocumentary-leftnav {
+	left:10px;
+	background:url(resources/back.png);
+}
+
+#jdocumentary-rightnav {
+	right:10px;
+	background:url(resources/forward.png);
+}
+
+
+
+/* jDocumentary - About dialog */
+
+.jdocumentary-dialog-about {
+	width: 450px;
+	border: 1px solid #444;
+	background-color: #222;
+	padding: 15px;
+	color: #ccc;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 92;
+	margin: -150px 0 0 -225px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius:8px;
+	border-radius: 8px;
+}
+
+.jdocumentary-dialog-about > a {
+	display: block;
+	width: 70px;
+	text-align: center;
+	float: right;
+	font-size: 0.7em;
+	background-color: #111;
+	padding: 2px 0;
+	border: 1px solid #666;
+	-moz-border-radius: 4px;
+	-webkit-border-radius:4px;
+	border-radius: 4px;
+}
+
+.jdocumentary-dialog-about > a:hover {
+	background-color: #fff;
+	color: #000;
+	border-color: #ddd;
+}
+
+.jdocumentary-dialog-about h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 0.9em;
+	color: #fff;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.jdocumentary-dialog-about h2 {
+	margin: 15px 0 8px 0;
+	padding: 0;
+	font-size: 0.9em;
+	color: #666;
+}
+
+.jdocumentary-dialog-about blockquote {
+	margin: 0;
+	padding: 0;
+	font-size: 0.7em;
+	font-style: italic;
+	text-align: center;
+	color: #ddd;
+}
+
+.jdocumentary-dialog-about p {
+	text-align: justify;
+	font-size: 0.8em;
+}
+
+.jdocumentary-dialog-about p a {
+	color: #ccc;
+}
+
+.jdocumentary-dialog-about p a:hover {
+	color: orange;
+}
+
+.jdocumentary-dialog-about div a {
+	font-size: 0.6em;
+	color: #444;
+	text-decoration: none;
+}
+
+.jdocumentary-dialog-about div a:hover {
+	text-decoration: underline;
+}
+
+.jdocumentary-dialog-about textarea {
+	width: 440px;
+	height: 55px;
+	margin-bottom: 8px;
+}
+
+
+/* jDocumentary - Fullscreen feature */
+
+.jdocumentary-fullscreen {
+	position: fixed;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+	z-index: 1;
+	height: 100%;
+	width: 100%;
+}
+
+.jdocumentary-fullscreen img{
+	height: auto;
+	width: auto;
+	position: relative;
+	outline: none;
+	border: none;
+	-ms-interpolation-mode: bicubic;
+	image-rendering: optimizeQuality;
+}
+
+/* jDocumentary - Overlay */
+
+#jdocumentary-overlay {
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	z-index: 91;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.7; 
+	-moz-opacity: 0.7;
+	-ms-filter: "alpha(opacity=70)";
+	filter: alpha(opacity=70);
+}
+
+/* jDocumentary - Embedded */
+
+.jdocumentary-start {
+	z-index: 93;
+	display: block;
+	position: absolute;
+	width: 256px;
+	height: 256px;
+	background: url(resources/play.png) no-repeat;
+	top: 50%;
+	left: 50%;
+	margin: -128px 0 0 -128px;
+}
+
+/* jDocumentary - Youtube video */
+
+.jdocumentary-youtubevideo {
+}
+
+/* jDocumentary - Google map */
+
+.jdocumentary-googlemap {
+    width: 100%;
+    height: 100%;
+    color: black;
+}
+
+/* jDocumentary - Content preloading */
+
+.jdocumentary-contentpreload {
+	position: absolute;
+	top: 50%;
+	width: 0;
+	height: 3px;
+	margin-top: -10px;
+	background-color: #666;
+}
+
+.jdocumentary-preloadmsg {
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	margin-top: -30px;
+	font-size: 0.7em;
+	color: #fff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+/* jDocumentary - Custom Scrollbar - Webkit */
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 13px;
+}
+ 
+::-webkit-scrollbar-button:horizontal,
+::-webkit-scrollbar-button:vertical,
+::-webkit-scrollbar-button:start,
+::-webkit-scrollbar-button:end,
+::-webkit-scrollbar-resizer:horizontal,
+::-webkit-scrollbar-resizer:vertical {
+	display: none;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: green;
+	-webkit-border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+	background-color: #999;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: #333;
+	-webkit-border-radius: 7px;
+}
+
+/* jDocumentary - Navigation Bar */
+
+.jdocumentary-navigation {
+	display: block;
+	position: fixed;
+	z-index: 89;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	height: 90px;
+	background-color: #000;
+	bottom: -67px; /* -this.height + commands.height */
+	left: 0;
+	-moz-opacity: 0.8;
+	-ms-filter: "alpha(opacity=80)";
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+
+.jdocumentary-navigation-item {
+	display: block;
+	width: 100px;
+	height: 67px;
+	float: left;
+	margin: 10px;
+	color: #fff;
+	border: 1px solid #555;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.7em;
+	line-height: 118px;
+	text-indent: 4px;
+	text-transform : capitalize;
+	background-color: #444;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.jdocumentary-navigation-item:hover {
+	border-color: #ccc;
+}
+
+/* jDocumentary - Sound player */
+
+#masterPlayer {
+	-moz-opacity: 0;
+	-ms-filter: "alpha(opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+
+/* jDocumentary - Copyright */
+
+.jdocumentary-copyright {
+	position: fixed;
+	bottom: 4px;
+	right: 5px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+	z-index: 91;
+	font-size: 0.65em;
+}
+
+.jdocumentary-copyright a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	color: #fff;
+	font-weight: bolder;
+	text-decoration: none;
+	font-size: 1.2em;
+}
+
+.jdocumentary-copyright a span {
+	color: #888;
+}
+
+.jdocumentary-copyright a:hover {
+	color: orange;
+}
+
+.jdocumentary-copyright a:hover span {
+	color: #444;
+}
+
+/* jDocumentary - Debug */
+
+/*[id]:hover:after {
+	content: "   #" attr(id) " "; 
+	font-size: 80%;
+	color: red;
+	text-decoration: none;
+}*/
+
+/* jDocumentary - Aural media */
+
+@media aural {  
+	h1, h2, h3 { stress: 20; richness: 90; }
+	.hide { speak: none; }
+	p.copyright { volume: x-soft; speech-rate: x-fast; }
+	dt { pause-before: 20% }
+	pre { speak-punctuation: code; }
+}
+
+/* jDocumentary - Responsive layout */
+
+@media only screen and (max-width: 800px) {
+	.jdocumentary-content { font-size: 90% }
+	.jdocumentary-buttons { font-size: 90% }
+}
+
+@media only screen and (max-width: 480px) {
+	.jdocumentary-content { font-size: 80% }
+	.jdocumentary-buttons { font-size: 80% }
+}
+#map {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+}

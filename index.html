@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Maroc</title>
+	<meta name="author" content="Alison & Fab">
+	<meta name="copyright" content="Copyright 2019 Alison & Fab">
+	<meta name="description" content="Voyage au Maroc du 24 avril au 1 mai 2025">
+	<meta name="keywords" content="carnet de route, Maroc">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="css/styles.css?v=1.1" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+	<script type="text/javascript" src="js/jplayer.playlist.min.js"></script>
+	<script type="text/javascript" src="js/jquery-jdocumentary.js"></script>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyBbZ2VUbWdm4zpjVBQOZYRqoW7wYY47kY4&sensor=false"
+		type="text/javascript"></script>
+		<script type="text/javascript">
+			$(function () {
+				$.support.cors = false;
+				$.getJSON('MyScenario.json', function (jd) {
+					$("body").jDocumentary({
+						scenario: jd,
+						enableShare: false,
+						analyticsTracker: "UA-31064924-1",
+						analyticsEventName: "Alison-et-fab"
+					});
+				});
+			});
+		</script>
+</head>
+
+<body>
+	<div style="margin:40px">
+		Voyage au Maroc du 24 avril au 1 mai 2025
+	</div>
+	<div id="jukebox" role="application" class="jdocumentary-persistant">
+		<div id="mp3Reader"></div>
+		<div class="jp-playlist" style="display: none;">
+			<ul>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost +
+			"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-31064924-1");
+			pageTracker._trackPageview();
+		} catch (err) {}
+	</script>
+	<br></br>
+</body>
+
+</html>
