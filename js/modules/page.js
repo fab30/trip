@@ -209,6 +209,20 @@ function jPage(pageData, screen) {
                 layer.layerDisplay();
             }
         }
+        
+        // Forcer un redimensionnement après l'affichage
+        var self = this;
+        setTimeout(function() {
+            self.resize();
+            // Double vérification pour les images de fond
+            for (var i = 0, len = self.layers.length; i < len; i++) {
+                var layer = self.layers[i];
+                if (layer.data.background) {
+                    layer.trigger("resize");
+                }
+            }
+        }, 200);
+        
         this.trigger("ready");
     };
     
@@ -218,7 +232,10 @@ function jPage(pageData, screen) {
         if (newSize == this.currentScreenSize) {
             return false;
         }
+        
+        console.log('📐 Page resize:', this.currentScreenSize, '->', newSize);
         this.currentScreenSize = $(window).width() + "x" + $(window).height();
+        
         for (var i = 0, len = this.layers.length; i < len; i++) {
             this.layers[i].trigger("resize");
         }

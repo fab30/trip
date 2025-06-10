@@ -180,11 +180,20 @@ $.fn.jLayer = function(layerData, page, layerIndex) {
         };
         
         this.bind("resize", function() {
-            self.im.trigger("resizer");
+            if (self.im && self.im.length > 0) {
+                self.im.trigger("resizer");
+            }
         });
         
         config.screen = page.screen;
         config.onReady = function() {
+            // Forcer un redimensionnement après chargement pour la page intro
+            if (page.name() === 'intro' || page.name() === 'root') {
+                setTimeout(function() {
+                    console.log('🔄 Force resize pour page:', page.name());
+                    $(window).trigger('resize');
+                }, 300);
+            }
             self.nextReady();
         };
         config.onError = function() {

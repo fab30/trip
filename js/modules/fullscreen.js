@@ -16,22 +16,45 @@ $.fn.jFullscreen = function(config) {
         
         this.im = $("<img/>")
             .attr("src", options.img)
+            .css({
+                'position': 'absolute',
+                'top': '0',
+                'left': '0',
+                'visibility': 'hidden' // Masquer pendant le chargement
+            })
             .bind("load", function() {
                 var image = $(this);
-                if ("onLoad" in options) {
-                    options.onLoad(image);
-                }
                 
-                self.find("*").remove();
-                self.append(image);
-                
+                // Attendre que l'image soit complètement chargée
                 setTimeout(function() {
-                    self.width = self.im.get(0).width;
-                    self.height = self.im.get(0).height;
-                    if ("onReady" in options) {
-                        options.onReady($(this));
+                    if ("onLoad" in options) {
+                        options.onLoad(image);
                     }
-                }, 10);
+                    
+                    self.find("*").remove();
+                    self.append(image);
+                    
+                    // Obtenir les dimensions naturelles de l'image
+                    self.width = image[0].naturalWidth || image[0].width;
+                    self.height = image[0].naturalHeight || image[0].height;
+                    
+                    console.log('🖼️ Image chargée:', self.width + 'x' + self.height);
+                    
+                    // Afficher l'image
+                    image.css('visibility', 'visible');
+                    
+                    // Premier redimensionnement
+                    image.trigger("resizer");
+                    
+                    // Redimensionnement après un court délai pour être sûr
+                    setTimeout(function() {
+                        image.trigger("resizer");
+                        if ("onReady" in options) {
+                            options.onReady(image);
+                        }
+                    }, 100);
+                    
+                }, 50); // Petit délai pour s'assurer que l'image est dans le DOM
                 
                 options.screen.addLoadedResource(options.img);
                 
@@ -45,62 +68,98 @@ $.fn.jFullscreen = function(config) {
                 }
             })
             .bind("error", function(event) {
+                console.error('❌ Erreur chargement image:', options.img);
                 if ("onError" in options) {
                     options.onError(event);
                 }
             })
             .bind("resizer", function() {
-                var originalWidth = self.im.get(0).width;
-                var originalHeight = self.im.get(0).height;
+                var originalWidth = self.width || self.im[0].naturalWidth || self.im[0].width;
+                var originalHeight = self.height || self.im[0].naturalHeight || self.im[0].height;
                 var windowWidth = $(window).width();
                 var windowHeight = $(window).height();
-                var ratio = (originalHeight / originalWidth).toFixed(2);
-                var windowRatio = (windowHeight / windowWidth).toFixed(2);
+                
+                // Vérifier que nous avons des dimensions valides
+                if (!originalWidth || !originalHeight) {
+                    console.warn('⚠️ Dimensions image non disponibles, retry...');
+                    setTimeout(function() {
+                        $(self.im).trigger("resizer");
+                    }, 100);
+                    return;
+                }
+                
+                var ratio = originalHeight / originalWidth;
+                var windowRatio = windowHeight / windowWidth;
                 
                 var thisSlide = $(this);
                 
+                // Réinitialiser les dimensions
+                thisSlide.css({
+                    'width': 'auto',
+                    'height': 'auto',
+                    'max-width': 'none',
+                    'max-height': 'none'
+                });
+                
+                // Logique de redimensionnement améliorée
                 if (ratio > windowRatio) {
-                    thisSlide.height('100%');
+                    // Image plus haute que large par rapport à la fenêtre
+                    thisSlide.css({
+                        'height': windowHeight + 'px',
+                        'width': 'auto'
+                    });
                 } else {
-                    thisSlide.width('100%');
+                    // Image plus large que haute par rapport à la fenêtre
+                    thisSlide.css({
+                        'width': windowWidth + 'px',
+                        'height': 'auto'
+                    });
                 }
                 
-                // Calcul des dimensions finales
-                var finalWidth = $(this).width() > 0 ? $(this).width() : originalWidth;
-                var finalHeight = $(this).height() > 0 ? $(this).height() : originalHeight;
-                
-                // Alignement horizontal
-                switch (options.horizontal_align) {
-                    case "left":
-                        $(this).css("left", 0);
-                        break;
-                    case "right":
-                        $(this).css("left", windowWidth - finalWidth);
-                        break;
-                    case "center":
-                        $(this).css("left", (windowWidth - finalWidth) / 2);
-                        break;
-                    default:
-                        alert("jDocumentary error: horizontal position '" + options.horizontal_align + "' unsupported");
-                }
-                
-                // Alignement vertical
-                switch (options.vertical_align) {
-                    case "top":
-                        $(this).css("top", 0);
-                        break;
-                    case "bottom":
-                        $(this).css("top", windowHeight - finalHeight);
-                        break;
-                    case "center":
-                        $(this).css("top", (windowHeight - finalHeight) / 2);
-                        break;
-                    default:
-                        alert("jDocumentary error: vertical position '" + options.vertical_align + "' unsupported");
-                }
+                // Attendre que le CSS soit appliqué avant de calculer la position
+                setTimeout(function() {
+                    // Calcul des dimensions finales après redimensionnement CSS
+                    var finalWidth = thisSlide.width();
+                    var finalHeight = thisSlide.height();
+                    
+                    // Alignement horizontal
+                    switch (options.horizontal_align) {
+                        case "left":
+                            thisSlide.css("left", 0);
+                            break;
+                        case "right":
+                            thisSlide.css("left", windowWidth - finalWidth);
+                            break;
+                        case "center":
+                            thisSlide.css("left", (windowWidth - finalWidth) / 2);
+                            break;
+                        default:
+                            thisSlide.css("left", (windowWidth - finalWidth) / 2);
+                    }
+                    
+                    // Alignement vertical
+                    switch (options.vertical_align) {
+                        case "top":
+                            thisSlide.css("top", 0);
+                            break;
+                        case "bottom":
+                            thisSlide.css("top", windowHeight - finalHeight);
+                            break;
+                        case "center":
+                            thisSlide.css("top", (windowHeight - finalHeight) / 2);
+                            break;
+                        default:
+                            thisSlide.css("top", (windowHeight - finalHeight) / 2);
+                    }
+                    
+                    console.log('📐 Image repositionnée:', finalWidth + 'x' + finalHeight, 
+                              'à la position:', thisSlide.css('left') + ',' + thisSlide.css('top'));
+                }, 10);
             });
         
+        // Démarrer le chargement
         if (options.screen.isResourceLoaded(options.img)) {
+            console.log('🔄 Image déjà en cache, trigger load');
             this.im.trigger("load");
         }
     };

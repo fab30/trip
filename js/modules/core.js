@@ -179,7 +179,20 @@ $.fn.jDocumentary = function(options) {
             
             // Gestion du redimensionnement
             $(window).bind("resize", function() {
-                self.resize();
+                // Débounce le redimensionnement pour éviter les appels excessifs
+                clearTimeout(self.resizeTimeout);
+                self.resizeTimeout = setTimeout(function() {
+                    console.log('🔄 Window resize triggered');
+                    self.resize();
+                }, 100);
+            });
+            
+            // Gestion de l'orientation mobile
+            $(window).bind("orientationchange", function() {
+                setTimeout(function() {
+                    console.log('📱 Orientation changed');
+                    self.resize();
+                }, 500);
             });
             
             // Gestion des touches clavier
@@ -301,10 +314,6 @@ $.fn.jDocumentary = function(options) {
     
     return this;
 };
-
-// Suppression des méthodes prototype (maintenant inline)
-// Extension des méthodes du plugin
-$.fn.jDocumentary.prototype = $.fn.jDocumentary.prototype || {};
 
 // Constantes et paramètres par défaut
 $.fn.jDocumentary.INSTANCE = null;
